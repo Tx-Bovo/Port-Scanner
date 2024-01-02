@@ -20,9 +20,6 @@ def start_tor():
     return tor_service
     
 
-
-
-
 # Simple port Scanner
 def scan_port(target, port, open_ports, lock):
     try:
