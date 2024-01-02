@@ -1,8 +1,6 @@
-markdown
-Copy code
 # Port Scanner
 
-A simple port scanner written in Python.
+A simple port scanner written in Python, with optional tor.
 
 ## Prerequisites
 
@@ -16,16 +14,20 @@ To install the required dependencies, run:
 ```bash
 pip install -r requirements.txt
 ```
-Usage
-bash
-Copy code
-python script.py -t <target> [-a] [--tor-scanner]
+## Usage
+```
+python stealthscan.py -t <ip> [-a] [--tor-scanner]
 -t or --target: Specify the target address.
 -a or --all: Scan all ports (default is to scan well-known ports only).
 --tor-scanner: Use Tor as a proxy for port scanning (requires PySocks).
-Example
-bash
-Copy code
+```
+## Example
+```
 python script.py -t 192.168.1.1 -a --tor-scanner
-Notes
+```
+## Notes
 Make sure to have Tor installed and running locally for Tor proxy support.
+
+## License
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
