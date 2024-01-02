@@ -23,7 +23,7 @@ python stealthscan.py -t <ip> [-a] [--tor-scanner]
 ```
 ## Example
 ```
-python script.py -t 192.168.1.1 -a --tor-scanner
+python stealthscan.py -t 192.168.1.1 -a --tor-scanner
 ```
 ## Notes
 Make sure to have Tor installed and running locally for Tor proxy support.
