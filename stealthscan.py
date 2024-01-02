@@ -2,6 +2,25 @@ import socket
 import threading
 import argparse
 import socks
+import stem.process
+
+
+
+# Start tor service
+def start_tor():
+    tor_service = stem.process.launch_tor_with_config(
+        config={
+            'SocksPort' : str(9050), # SOCKS default port 
+            'ControlPort' : str(9051), # Control port to Tor Controller
+        },
+        timeout=300,
+        take_ownership=True,
+    )
+
+    return tor_service
+    
+
+
 
 
 # Simple port Scanner
@@ -36,7 +55,7 @@ def scan_ports(target, init_port, end_port):
     return open_ports
 
 
-def scan_ports_with_tor(target, init_port, end_port):
+def scan_ports_with_tor(target, init_port, end_port, tor_service):
     open_ports = []
     with socks.socksocket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.settimeout(1)
@@ -72,12 +91,13 @@ def main():
     else:
         init_port = 1
         end_port = 1024
-    ports = scan_ports(target, init_port, end_port)
-    ports = sorted(ports)
-
 
     if tor_scanner:
-        ports = scan_ports_with_tor(target, init_port, end_port)
+        try:
+            tor_service = start_tor()
+            ports = scan_ports_with_tor(target, init_port, end_port, tor_service)
+        except Exception as e:
+            print(e)
     else:
         ports = scan_ports(target, init_port, end_port)
 
